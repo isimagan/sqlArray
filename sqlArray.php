@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', FALSE);
 ini_set('display_startup_errors', FALSE);
 
-$con = new mysqli("isimagan.priv.no.mysql","isimagan_priv_n","0412trollA","isimagan_priv_n");
+$con = new mysqli($servername,$username,$password,$tableName);
 function sqlArray($sql) {
     global $con;
     $result = $con->query($sql);
@@ -22,23 +22,5 @@ function sqlArray($sql) {
         $array[] = $arr;
     }
     return $array;
-}
-
-$teams = array("Senior Herrer","Senior Damer","G1996","J1998","G1999","J2000","G2002","El-innebandy");
-
-function checkIfLoggedIn($brukerID, $undermapper) {
-	$maps = '';
-	for ($i = 0; $i < $undermapper; $i++) {
-		$maps .= '../';
-	}
-	$maps .= 'login.php';
-	if (!isset($brukerID)) {
-		header("Location: " . $maps);
-	}
-}
-
-function loginRequests() {
-	$array = sqlArray("SELECT * FROM bvhif_brukere WHERE godkjent=0");
-	return '<span class="badge">' . count($array) . '</span>';
 }
 ?>
